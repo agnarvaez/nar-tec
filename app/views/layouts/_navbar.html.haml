@@ -1,0 +1,16 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top
+  .container-fluid
+    %ul.nav.navbar-nav
+      %li= link_to 'Nar-Tec', root_path
+      - if current_user
+        %li= link_to 'Home', root_path
+        %li= link_to 'Profile', user_path(current_user)
+        %li= link_to 'Events', events_path
+        .search-container
+          %input{:name => "search", :placeholder => "Search Events", :type => "text"}
+            %button{:type => "submit"}
+              %i.fa.fa-search
+        %li= link_to 'Logout', destroy_user_session_path, method: :delete
+        - if current_user.has_role?(:admin)
+          %li= link_to 'Users', users_path
+          %li= link_to 'Roles', roles_path
